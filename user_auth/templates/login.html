@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form style="background-color: rgb(254, 255, 254); max-width: 500px;" novalidate method="post" class="my-4 container p-5 border shadow-lg">
+        {% csrf_token %}
+        <h3 class="text-center font-monospace mb-3">Login Form</h3>
+        {{form | crispy}}
+        <button class="btn btn-primary">Login</button>
+    </form>
+{% endblock %}

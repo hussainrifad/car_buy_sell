@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Add Car {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <form style="background-color: rgb(254, 255, 254);" novalidate method="post" enctype="multipart/form-data" class="my-4 w-75 container p-5 border shadow-lg">
+        {% csrf_token %}
+        <h3 class="text-center font-monospace mb-3">Car Adding Form</h3>
+        {{form | crispy}}
+        <button class="btn btn-primary">ADD</button>
+    </form>
+{% endblock %}

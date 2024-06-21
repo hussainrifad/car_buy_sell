@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+    <div class="my-5" style="min-height:500px">
+        <div class="text-center container">
+            {% for m in messages %}
+            <p>{{ m }}</p>
+            {% endfor %}
+        </div>
+        <div>
+            <a class="btn btn-warning" href="{% url 'updateprofile' %}">Update Profile</a>
+        </div>
+        <div class="my-5">
+        {% if items %}
+        <h5>Total Cars : {{items|length}}</h5>
+        <div class="d-flex gap-3 flex-wrap">
+            {% for item in items %}
+            <div class="card" style="max-width: 300px;">
+                <img 
+                {% if item.car.car_image %} 
+                src="{{item.car.car_image.url}}" 
+                {% else %} 
+                src="" 
+                {% endif %} 
+                class="card-img-top" alt="Car uploaded image">
+                <div class="card-body">
+                  <h5 class="card-title">{{item.car.car_name}}</h5>
+                  <p class="card-text">{{item.car.car_description|truncatewords:21}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="text-warning fs-4">{{item.car.car_price}} $</p>
+                    <p>Made By {{item.car.car_brand}}</p>
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h5>You haven't purchase any car yet</h5>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

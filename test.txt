@@ -1,0 +1,21 @@
+{% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'editprofile' %}">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'addartist' %}">Add Artist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'addalbum' %}">Add Album</a>
+          </li>
+            <a class="nav-link active" aria-current="page" href="{% url 'userlogout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'registration' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'userlogin' %}">Login</a>
+          </li>
+          {% endif %}

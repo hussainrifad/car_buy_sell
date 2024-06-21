@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+    <div class="my-3">
+        <div class="text-center">
+            {% for m in messages %}
+            <p>{{ m }}</p>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+          {% if user.is_authenticated %}
+            <p>Welcome <span class="text-warning f-bold">{{user.first_name}} {{user.last_name}}</span></p>
+          {% endif %}
+        </div>
+        <!-- banner section  -->
+        <div class="my-5 w-100 container">
+            <div class="row g-0">
+              <div class="col-md-7">
+                <img src="{% static 'images/front_cover.jpg' %}" class="img-fluid rounded-start" alt="cover image">
+              </div>
+              <div class="col-md-3 d-flex align-items-center ms-md-5">
+                <div class="card-body">
+                  <h3 class="card-title">Buy Your Desire Car</h3>
+                  <p class="card-text my-5">Here you will find all kind of car from all around the world. From various brands.</p>
+                  <div>
+                  {% if user.is_authenticated %}
+                  <a class="btn btn-danger">DISCOVER ALL CARS</a>
+                  {% else %}
+                  <a href="{% url 'userlogin' %}" class="btn btn-primary">LOGIN</a>
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div>
+            <div class="my-5">
+                <h4>Total {{brands|length}} brands listed </h4>
+                <div class="p-3 d-flex align-items-center flex-wrap gap-2">
+                    {% for brand in brands %}
+                    <a href="{% url 'home' brand.brand_slug %}" class="btn btn-dark border" style="width: 100px;">{{brand.brand_name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="my-5">
+                <h4 class="mb-3">Total Cars {{cars|length}}</h4>
+                <div class="d-flex gap-3 flex-wrap">
+                    {% for car in cars %}
+                    <div class="card" style="max-width: 300px;">
+                        <img
+                        {% if car.car_image %} 
+                        src="{{car.car_image.url}}" 
+                        {% else %} 
+                        src="" 
+                        {% endif %} 
+                        class="card-img-top" alt="Car uploaded image">
+                        <div class="card-body">
+                          <h5 class="card-title">{{car.car_name}}</h5>
+                          <p class="card-text">{{car.car_description|truncatewords:30}}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="text-warning fs-4">{{car.car_price}} $</p>
+                            <p>Made By {{car.car_brand}}</p>
+                          </div>
+                          <a class="btn btn-primary" href="{% url 'car_details' car.id %}">VIEW DETAILS</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
